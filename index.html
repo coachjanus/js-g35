@@ -37,7 +37,7 @@
                     <span class="app-main-header--logo-emphasis">Super pretty</span> store
                 </div>
                 <nav class="app-main-header--links">
-                    <a href="cart.html"><i class="fa-regular fa-user"></i></a>
+                    <a href="#!" id="user" onclick="window.login.showModal();"><i class="fa-regular fa-user"></i></a>
                     <a href="cart.html"><i class="fa-solid fa-cart-plus"></i></a>
                     <a href="cart.html"><i class="fa-regular fa-heart"></i></a>
                 </nav>
@@ -147,7 +147,7 @@
                                 <div class="card card-badge">
                                     <div class="card-figure">
                                         <div class="icons">
-                                            <a href="#" class="fas fa-shopping-cart"></a><a href="#"
+                                            <a href="#!" class="fas fa-shopping-cart"></a><a href="#"
                                                 class="fas fa-heart"></a><a href="#" class="fas fa-eye"></a>
                                         </div>
                                         <figure class="image">
@@ -407,6 +407,26 @@
                 d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
         </symbol>
     </svg>
+
+    <dialog id="login">
+        <a href="#!" onclick="window.login.close();" title="Close" class="close fas fa-times"></a>
+        <div class="card">
+        <h2>Login</h2>
+        <form class="form-container">
+            <div class="input-group">
+            <label class="form-label">Username or email address<span>*</span></label>
+            <input type="text" placeholder="Username or Email" required class="form-control">
+            </div>
+            <div class="input-group">
+            <label class="form-label">Password<span>*</span></label>
+            <input type="password" placeholder="Password" required class="form-control">
+            </div>
+            <input type="submit" value="Sign In" />
+        </form>
+        </div>
+    </dialog>
+
+    <script src="/js/main.js"></script>
 </body>
 
 </html>
