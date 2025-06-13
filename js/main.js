@@ -1,48 +1,76 @@
 
-// console.log(document.domain); // localhost
-// console.log(document.URL); // http://localhost:1234/
-// console.log(document.title); // Shopping cart
-// console.log(document.doctype); // <!DOCTYPE html>
-// console.log(document.head); 
-// console.log(window.login)
 
-let hero = document.getElementById('hero');
-let user = document.getElementById('user');
-// console.log(user)
-// console.log(hero)
 
-let first_element = document.querySelector('nav a');
-// console.log(first_element)
+// document.addEventListener("DOMContentLoaded", messageShow)
 
-let h1 = document.querySelector('h1')
-// console.log(h1)
 
-h1.addEventListener('click', function(){
-    h1.style.color = "red"
-    h1.textContent = "Hey I am changed" ;
-})
-// h1.style.color = "red"
-// h1.textContent = "Hey I am changed" ;
 
-let card = document.querySelector('.card')
-console.log(card.classList)
-// h1.style.cssText = "color:rgb(177, 7, 146); font: 300 18px/1.6 'Source Sans Pro',sans-serif; margin:0; padding: 5em 0 2em; text-align: center;";
 
-// let chimg = document.querySelector("figure img")
+const appNav = document.querySelector('.app-nav');
+const appNavHide = document.querySelector('.app-nav--hide');
+const appNavShow = document.querySelector('.app-nav--show');
 
-// chimg.setAttribute( 'src', '/images/product-11.jpg')
-function messageShow() {
-    console.log("DOM Content Loaded") 
+const hamburger = document.getElementById('hamburger');
+
+
+const productContainer = document.querySelector('.product-container');
+
+const addToCartButtons = productContainer.querySelectorAll('.add-to-cart');
+
+const hideNav = () => {
+    appNav.classList.add('app-nav__hide');
+    appNav.classList.remove('app-nav__show');
+    appNavShow.classList.toggle('hamburger');
 }
 
-document.addEventListener("DOMContentLoaded", messageShow)
+const showNav = () => {
+    appNav.classList.toggle('app-nav__hide');
+    appNav.classList.toggle('app-nav__show');
+    appNavShow.classList.toggle('hamburger');
+}
 
 
-let shopping_cart = document.querySelector(".card-figure .fa-shopping-cart")
+function initNav() {
+    appNavHide.addEventListener('click', hideNav);
+    appNavHide.addEventListener('touchted', hideNav);
+
+    hamburger.addEventListener('click', showNav);
+    hamburger.addEventListener('touchted', showNav);
+}
 
 
-shopping_cart.addEventListener("click", function(e) {
-    console.log(shopping_cart)
-    console.log(e)
-    console.log(e.target)
-})
+function main() {
+    initNav();
+
+    // console.dir(addToCartButtons);
+
+    // for (let i=0; i<addToCartButtons.length; i++) {
+    //     console.log(addToCartButtons[i]);
+    // }
+
+    addToCartButtons.forEach(item => {
+        item.addEventListener('click', (event) => {
+            // console.log(item);
+
+            // console.log(event.target);
+            let product = event.target.closest('.card');
+            // console.log(product);
+            console.log(product.children[1].children[1].innerHTML);
+            console.log(product.children[1].children[1].innerText);
+            console.log(product.children[1].children[0]);
+            console.log(product.children[1].dataset.title);
+        });
+    });
+
+}
+
+(
+    () => {
+        if(document.readyState === "loading") {
+            document.addEventListener('DOMContentLoaded', main);
+        }else{
+            main();
+        }
+    }
+
+)();
