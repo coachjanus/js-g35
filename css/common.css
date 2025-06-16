@@ -367,10 +367,36 @@ h1 {
 
     grid-template-columns: repeat(auto-fit, minmax(13em, 1fr));
 }
-.card-badge::before {
-    background-color: red;
+.badge-sold::before {
+    background-color: rgb(148, 6, 115);
+    color: white;
+    content: "Sold";
+    position: absolute;
+    top: .5rem;
+    right: -1.8rem;
+    width: 6em;
+    text-align: center;
+    z-index: 2;
+    transform: rotate(45deg);
+}
+
+.badge-new::before {
+    background-color: green;
     color: white;
     content: "New";
+    position: absolute;
+    top: .5rem;
+    right: -1.8rem;
+    width: 6em;
+    text-align: center;
+    z-index: 2;
+    transform: rotate(45deg);
+}
+
+.badge-sale::before {
+    background-color: red;
+    color: white;
+    content: "Sale";
     position: absolute;
     top: .5rem;
     right: -1.8rem;
