@@ -11,7 +11,7 @@ const appNavShow = document.querySelector('.app-nav--show');
 const hamburger = document.getElementById('hamburger');
 
 
-const productContainer = document.querySelector('.product-container');
+
 
 const hideNav = () => {
     appNav.classList.add('app-nav__hide');
@@ -39,10 +39,26 @@ function initNav() {
 function main() {
     initNav();
 
-    productContainer.innerHTML = populateProductList();
-    const addToCartButtons = productContainer.querySelectorAll('.add-to-cart');
     let shoppingCart = new Cart();
-    shoppingCart.addProductToCartButton(addToCartButtons, 1);
+    
+    const homePage = document.getElementById("home-page");
+    const cartPage = document.getElementById("cart-page");
+
+    if(homePage) {
+        const productContainer = document.querySelector('.product-container');
+        productContainer.innerHTML = populateProductList(products);
+        const addToCartButtons = productContainer.querySelectorAll('.add-to-cart');
+        shoppingCart.addProductToCartButton(addToCartButtons, 1);
+    }
+    
+
+    if(cartPage) {
+        const shoppingCartItems = document.querySelector(".shopping-cart-items");
+
+        shoppingCartItems.innerHTML = shoppingCart.populateShoppingCart(products);
+        shoppingCart.renderCart(shoppingCartItems);
+
+    }
 }
 
 (

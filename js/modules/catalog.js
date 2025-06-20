@@ -19,7 +19,7 @@ const productItemTemplate = (product) => `
 </div>`;
 
 
-export const populateProductList = () => {
+export const populateProductList = (products) => {
     let content = "";
     products.forEach(item => content += productItemTemplate(item));
     return content;

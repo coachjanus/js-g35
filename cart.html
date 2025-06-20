@@ -10,10 +10,15 @@
 
 <body>
 
-    <div class="app">
+    <div class="app" id="cart-page">
         <aside class="app-nav">
             <header class="app-nav-header">
                 <span class="app-nav-header--title">Navigation</span>
+                <span class="app-nav--hide">
+                    <a href="#!" class="button" id="hamburger">
+                        <i class="fa-solid fa-bars"></i>
+                    </a>
+                </span>
             </header>
             <ul class="nav">
                 <li><a href="index.html">Home</a></li>
@@ -62,7 +67,7 @@
                                                 <th scope="col">Actions</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="shopping-cart-items">
                                             <tr>
                                                 <td>Black cat</td>
                                                 <td>123</td>
@@ -264,6 +269,9 @@
                 d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z" />
         </symbol>
     </svg>
+
+    <script src="/js/db.js"></script>
+    <script src="/js/main.js" type="module"></script>
 </body>
 
 </html>
