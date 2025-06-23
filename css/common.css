@@ -406,21 +406,47 @@ h1 {
     transform: rotate(45deg);
 }
 
-.table {
-    width: 100%;
+table {
+    min-width: 100%;
     text-align: start;
     border-collapse: collapse;
+    display: grid;
+    table-layout: fixed;
+    margin-bottom: 1rem;
+    grid-template-columns: 
+    minmax(10em, 4fr)
+    minmax(2em, 1fr)
+    minmax(4em, 2fr)
+    minmax(2em, 1fr)
+    minmax(2em, 1fr)
+    ;
+}
+.table-responsive {
+    overflow-x: auto;
+}
+
+.table thead,
+.table tbody,
+.table tr{
+    display: contents;
 }
 
 .table thead {
-    background-color: hsla(0, 0%, 0%, .075);
+    background-color: hsla(0, 0%, 0%, 0.075);
 }
 
-.table tr {
+.table td,
+.table th {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
+
+/* .table tr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+} */
 
 .cart-container {
     display: flex;
@@ -437,26 +463,67 @@ h1 {
     flex: 1;
 }
 
+.form-container {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
 .form-control {
     display: block;
     width: 100%;
-    padding: .5rem 1rem;
-    line-height: 1.5;
-    border: 1px solid var(--accentColor);
+    padding: .35em .75em;
+    border: 1px solid var(--muteColor);
 
 }
+.form-control:focus {
+    border: 1px solid var(--accentCollor);
 
+}
 .input-group {
     display: flex;
     flex-wrap: wrap;
+    padding: 0.5rem;
 }
+
+.btn-primary {
+    background-color: blueviolet;
+    color: white;
+    font-weight: 500;
+    border-color: blueviolet;
+    border-radius: 5%;
+}
+
+.number-input{
+    display: inline-flex;
+}
+
+input[type="number"] {
+    appearance: textfield;
+    text-align: center;
+    color: black;
+} 
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button{
+    -webkit-appearance: none;
+}
+
+
+.form-check-label {
+    color: white;
+    text-transform: capitalize;
+}
+
 
 .input-group div {
     flex: 1;
     overflow-x: hidden;
 }
 
-.contactr-container {
+.contact-container {
     display: grid;
     /* border: 1px red solid; */
     gap: 1rem;
@@ -510,10 +577,16 @@ h1 {
 }
 
 .btn {
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: middle;
+    cursor: pointer;
     display: inline-block;
-    background-color: transparent;
-    padding: .3em .5em;
-} 
+    padding: .375rem .75rem;
+}
 .btn-hero {
     background-color: darkviolet;
     color: white;
@@ -538,20 +611,23 @@ h1 {
 .card-price::before {
     content: "$";
 }
-
 .button {
-    background-color: hsla(0 0% 0% / .08);
+    background-color: hsla(0, 0%, 0%, .1);
     border: 1px solid transparent;
+    
     text-decoration: none;
     color: white;
     border-radius: 4px;
     white-space: nowrap;
     cursor: pointer;
+    transition: background .2s cubic-bezier(0.075, 0.82, 0.165, 1), opacity .2s cubic-bezier(0.19, 1, 0.22, 1), transform .2s ease-in;
 
 }
 
 .button:hover {
-    background-color: hsla(0, 0%, 0%, .75);
+    background-color: hsla(0, 0%, 0%, .6);
+    opacity: .8;
+    transform: scale(1.2);
 }
 
 .image:hover {
