@@ -16,10 +16,12 @@ export default class Cart {
 
     constructor (key = 'basket') {
         this.cart = Store.init(key);
+        this.cartItemsAmount();
     }
 
     saveCart(key = 'basket') {
         Store.set(key, this.cart);
+        this.cartItemsAmount();
     }
 
     addProductToCart(cartItem, amount = 1) {
@@ -92,17 +94,25 @@ export default class Cart {
 
     setCartTotal(shoppingCartItems) {
         let tmpTotal = 0;
-
+        let subTotal = 0;
         this.cart.map(item => {
             let ids = "#id"+item.id;
             let price = shoppingCartItems.querySelector(`${ids} .product-price`).textContent;
             tmpTotal = +price * item.amount;
             shoppingCartItems.querySelector(`${ids} .product-subtotal`).textContent = parseFloat(tmpTotal.toFixed(2));
-        })
+
+            subTotal += tmpTotal;
+        });
+
+        let cartTax = subTotal * 0.2;
+        document.querySelector('.cart-subtotal').textContent = subTotal.toFixed(2);
+        document.querySelector('.cart-tax').textContent = cartTax.toFixed(2);
+        document.querySelector('.cart-total').textContent = subTotal + cartTax;
+
     }
 
     renderCart(shoppingCartItems) {
-
+        this.setCartTotal(shoppingCartItems);
         shoppingCartItems.addEventListener('click', event => {
             if(event.target.classList.contains('fa-trash-alt')) {
                 this.cart = this.filterItem(this.cart, event.target.dataset.id);
@@ -132,5 +142,10 @@ export default class Cart {
                 
             }
         })
+    }
+
+    cartItemsAmount() {
+        const totalInCart = document.getElementById('total-in-cart');
+        totalInCart.textContent = this.cart.reduce((p, c) => p + c.amount, 0);
     }
 }

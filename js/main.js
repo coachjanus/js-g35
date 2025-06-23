@@ -2,7 +2,8 @@
 
 import Cart from "./modules/cart.js";
 // import Store from "./modules/store.js";
-import {populateProductList} from "./modules/catalog.js";
+import Home from "./modules/home.js";
+import Catalog from "./modules/catalog.js";
 
 const appNav = document.querySelector('.app-nav');
 const appNavHide = document.querySelector('.app-nav--hide');
@@ -42,15 +43,28 @@ function main() {
     let shoppingCart = new Cart();
     
     const homePage = document.getElementById("home-page");
+    const shopPage = document.getElementById("shop-page");
     const cartPage = document.getElementById("cart-page");
 
     if(homePage) {
+        const home = new Home();
         const productContainer = document.querySelector('.product-container');
-        productContainer.innerHTML = populateProductList(products);
+        productContainer.innerHTML = home.populateProductList(products);
         const addToCartButtons = productContainer.querySelectorAll('.add-to-cart');
         shoppingCart.addProductToCartButton(addToCartButtons, 1);
     }
     
+    if(shopPage) {
+        const catalog = new Catalog();
+        const productContainer = document.querySelector('.product-container');
+        productContainer.innerHTML = catalog.populateProductList(products);
+        const addToCartButtons = productContainer.querySelectorAll('.add-to-cart');
+        shoppingCart.addProductToCartButton(addToCartButtons, 1);
+
+        const categoryContainer = document.getElementById('category-container');
+
+        catalog.populateCategories(categoryContainer, categories);
+    }
 
     if(cartPage) {
         const shoppingCartItems = document.querySelector(".shopping-cart-items");

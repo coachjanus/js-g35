@@ -1,26 +1,57 @@
 "use strict";
-
-const productItemTemplate = (product) => `
-<div class="card card-badge badge-${product.badge}" data-id="${product.id}">
-    <div class="card-figure">
-        <div class="icons">
-            <a href="#!" class="fas fa-shopping-cart add-to-cart"></a>
-            <a href="#" class="fas fa-heart"></a>
-            <a href="#" class="fas fa-eye"></a>
-        </div>
-        <figure class="image">
-            <img src="${product.image}" alt="${product.name}">
-        </figure>
-    </div>
-    <div class="card-body" data-title="Black Cat">
-        <div class="card-title">${product.name}</div>
-        <span class="card-price">${product.price}</span>
-    </div>
-</div>`;
+import Home from './home.js';
 
 
-export const populateProductList = (products) => {
-    let content = "";
-    products.forEach(item => content += productItemTemplate(item));
-    return content;
+export default class Catalog extends Home
+{
+    liElement = obj => `<li><a class="category-item" href="#!" data-id="${obj.id}">${obj.name}</a></li>`;
+
+    ulElement = items => {
+        let ul = document.createElement('ul');
+        ul.setAttribute('class', 'unstyled, categories');
+        let result = ""; 
+        for (let item of items) {
+            result += this.liElement(item);
+        }
+        ul.innerHTML = result;
+        return ul;
+    }
+
+    sectionName = section => {
+        let div = document.createElement('div');
+        div.setAttribute('class', 'py-2 px-4 text-whte mb-3');
+        div.innerHTML = `<strong class="text-uppercase fw-bold">${section}</strong>`;
+        return div;
+    }
+
+    distinctSection(categories) {
+        let mapped = [...categories.map(item => item.section)];
+        let uniqe = [...new Set(mapped)];
+        return uniqe;
+    }
+
+    categoriesCollation(distinct, categories) {
+        let result = [];
+        let i = 0;
+        for (let section of distinct) {
+            result[i] = categories.filter(item => item.section === section);
+            i++;
+        }
+        return result;
+
+    }
+
+
+    populateCategories(container, categories) {
+        let distinct = this.distinctSection(categories);
+        let collation = this.categoriesCollation(distinct, categories);
+
+
+
+        for(let i = 0; i < distinct.length; i++) {
+            container.append(this.sectionName(distinct[i]))
+            container.append(this.ulElement(collation[i]))
+        }
+    } 
+
 }
