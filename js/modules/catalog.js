@@ -19,8 +19,8 @@ export default class Catalog extends Home
 
     sectionName = section => {
         let div = document.createElement('div');
-        div.setAttribute('class', 'py-2 px-4 text-whte mb-3');
-        div.innerHTML = `<strong class="text-uppercase fw-bold">${section}</strong>`;
+        div.setAttribute('class', 'py-2 px-4 text-whte mb-3 categories');
+        div.innerHTML = `<strong class="text-uppercase fw-bold"><a href="#!">${section}</a></strong>`;
         return div;
     }
 
@@ -53,5 +53,21 @@ export default class Catalog extends Home
             container.append(this.ulElement(collation[i]))
         }
     } 
+
+    badgeTemplate = item => `
+    <div class="form-check mb-1">
+        <input type="checkbox" class="form-check-input" id="di-${item}" value="${item}" name="badge">
+        <label class="form-check-label" for="di-${item}">${item}</label>
+    </div>`;
+
+
+
+    populateBadges (products) {
+        let badges = [...new Set([...products.map(item => item.badge)].filter(item => item != ""))];
+        return badges.map(item => this.badgeTemplate(item)).join('');
+
+    }
+
+    renderList = (products, value) => this.populateProductList(products.filter(product => product.badge.includes(value)));
 
 }

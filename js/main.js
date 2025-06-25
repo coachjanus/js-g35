@@ -5,6 +5,10 @@ import Cart from "./modules/cart.js";
 import Home from "./modules/home.js";
 import Catalog from "./modules/catalog.js";
 
+import Footer from "./components/footer.js";
+
+customElements.define('footer-component', Footer);
+
 const appNav = document.querySelector('.app-nav');
 const appNavHide = document.querySelector('.app-nav--hide');
 const appNavShow = document.querySelector('.app-nav--show');
@@ -64,6 +68,49 @@ function main() {
         const categoryContainer = document.getElementById('category-container');
 
         catalog.populateCategories(categoryContainer, categories);
+        let categoryItems = categoryContainer.querySelectorAll(".categories a");
+
+        categoryItems.forEach(element => element.addEventListener('click', e => {
+                e.preventDefault();
+                if (e.target.classList.contains('category-item')) {
+                    let category = e.target.dataset.id;
+                    const categoryFilter = items => items.filter(item => item.category == category);
+                    productContainer.innerHTML = catalog.populateProductList(categoryFilter(products));
+                } else {
+                    productContainer.innerHTML = catalog.populateProductList(products);
+                }
+        }
+        ));
+
+        const showOnly = document.getElementById('show-only');
+
+        showOnly.innerHTML = catalog.populateBadges(products);
+
+        let checkbox = showOnly.querySelectorAll('input[name="badge"]');
+
+        
+
+        let values = [];
+
+        checkbox.forEach(item => {
+            item.addEventListener('change', e => {
+                if(e.target.checked) {
+                    values.push(item.value);
+                } else {
+                    if(values.length != 0) {
+                        values.pop(item.value);
+                    }
+                }
+                productContainer.innerHTML = values.map(
+                    value => catalog.renderList(products, value)
+                ).join('');
+                if (values.length == 0) {
+                    productContainer.innerHTML = catalog.populateProductList(products);
+                }
+            })
+        })
+
+
     }
 
     if(cartPage) {
